@@ -14,7 +14,7 @@ class Printer implements Runnable {
 }
 
 public class SimpleThreads {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Thread t1 = new Thread(new Printer("A"));
         Thread t2 = new Thread(new Printer("B"));
         Thread t3 = new Thread(new Printer("C"));
@@ -22,7 +22,9 @@ public class SimpleThreads {
         t1.start();
         t2.start();
         t3.start();
+        t1.join();
 
         System.out.println("main is finished");
     }
+
 }
