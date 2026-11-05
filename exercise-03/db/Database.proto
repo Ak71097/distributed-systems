@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+// ---- the arguments of each operation ----
+message GetRecordRequest {
+  int32 index = 1;
+}
+
+message AddRecordRequest {
+  int32 index = 1;
+  string record = 2;
+}
+
+message GetSizeRequest {
+  // no arguments needed
+}
+
+// ---- the request: WHICH operation + its arguments ----
+message RpcRequest {
+  enum Operation {
+    UNKNOWN    = 0;   // proto3: the first enum value must be 0
+    GET_RECORD = 1;
+    ADD_RECORD = 2;
+    GET_SIZE   = 3;
+  }
+  Operation operation = 1;
+  GetRecordRequest get_record_arg = 2;
+  AddRecordRequest add_record_arg = 3;
+  GetSizeRequest get_size_arg = 4;
+}
+
+// ---- the response ----
+message RpcResponse {
+  bool success = 1;     // did it work?
+  string record = 2;    // answer of getRecord
+  int32 size = 3;       // answer of getSize
+  string error = 4;     // error text if success = false
+}

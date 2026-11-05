@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+message LogMessage {
+  enum Severity {
+    DEBUG = 0;
+    INFO  = 1;
+    WARN  = 2;
+    ERROR = 3;
+    FATAL = 4;
+  }
+
+  int64 timestamp = 1;          // when: milliseconds since 1970-01-01
+  optional string source = 2;   // who / where (optional)
+  Severity severity = 3;        // how important
+  string text = 4;              // the message itself (one line)
+}
